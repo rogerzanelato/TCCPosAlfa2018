@@ -2,10 +2,12 @@ import React from 'react';
 import { ImageBackground } from 'react-native';
 import { Container, Header, Body, Right, Button, Title, Text, Content } from 'native-base';
 import styles from '../css/Style';
+import { connect } from 'react-redux';
+import { setGameStatus } from '@services/redux/actions/GameplayActions'
 
-export default class HomeScreen extends React.Component {
-    constructor() {
-        super();
+class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             error: ''
         }
@@ -25,7 +27,9 @@ export default class HomeScreen extends React.Component {
                     <Content padder contentContainerStyle={styles.container_init}>
                         <Text 
                             style={[styles.item_menu, styles.item_diff]}
-                            onPress={ () => this.props.navigation.navigate('Game') }>
+                            onPress={ () => {
+                                this.props.navigation.navigate('Game');
+                            } }>
                             Começar Jogo
                         </Text>
                         <Text 
@@ -47,3 +51,6 @@ export default class HomeScreen extends React.Component {
     }
 
 }
+
+const mapStateToProps = state => ({ ...state.GameplayReducer })
+export default connect(mapStateToProps, { setGameStatus })(HomeScreen)

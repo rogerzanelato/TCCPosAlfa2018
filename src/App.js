@@ -1,17 +1,24 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import HomeScreen from './screens/HomeScreen';
-import CadJogadorScreen from './screens/CadJogadorScreen';
-import JogadorManagerScreen from './screens/JogadorManagerScreen';
-import ConfigScreen from './screens/ConfigScreen';
-import GameScreen from './screens/GameScreen';
+import HomeScreen from '@screens/HomeScreen';
+import CadJogadorScreen from '@screens/CadJogadorScreen';
+import JogadorManagerScreen from '@screens/JogadorManagerScreen';
+import ConfigScreen from '@screens/ConfigScreen';
+import GameScreen from '@screens/GameScreen';
+import RolesScreen from '@screens/RolesScreen';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './services/redux/reducers';
+
+const store = createStore(reducers)
 
 const SimpleApp = StackNavigator({
     Home: { screen: HomeScreen },
     Config: { screen: ConfigScreen },
     Game: { screen: GameScreen },
     CadJogador: { screen: CadJogadorScreen },
-    JogadorManager: { screen: JogadorManagerScreen }
+    JogadorManager: { screen: JogadorManagerScreen },
+    Roles: { screen: RolesScreen }
   },
   {
     initialRouteName: 'Home',
@@ -27,7 +34,9 @@ const SimpleApp = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <SimpleApp />
+      <Provider store={store}>
+        <SimpleApp />
+      </Provider>
     );
   }
 }

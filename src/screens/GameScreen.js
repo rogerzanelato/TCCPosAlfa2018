@@ -2,31 +2,38 @@ import React from 'react';
 import { View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Content } from 'native-base';
 import styles from '../css/Style';
-import Jogador from '../models/Jogador';
+import { connect } from 'react-redux';
+import { setPlayers } from '@services/redux/actions/GameplayActions'
+import Jogador from '@models/Jogador';
 
-export default class GameScreen extends React.Component {
-    constructor() {
-        super();
+class GameScreen extends React.Component {
+    constructor(props) {
+        super(props);
 
         this.state = {
-            error: '',
-            jogadores: [
-                new Jogador('Jogador 1', require('../img/avatares/av1.png')),
-                new Jogador('Jogador 2', require('../img/avatares/av2.png')),
-                new Jogador('Jogador 3', require('../img/avatares/av3.png')),
-                new Jogador('Jogador 4', require('../img/avatares/av4.png')),
-                new Jogador('Jogador 5', require('../img/avatares/av5.png'))
-            ]
+            error: ''
+        }
+    }
+
+    componentDidMount() {
+        if ( this.props.players.length === 0 ) {
+            this.props.setPlayers({
+                players: [
+                    new Jogador('Jogador 1', require('@imgs/avatares/av1.png')),
+                    new Jogador('Jogador 2', require('@imgs/avatares/av2.png')),
+                    new Jogador('Jogador 3', require('@imgs/avatares/av3.png'))
+                ]
+            });
         }
     }
 
     renderJogadores() {
-        content = this.state.jogadores.map( (item, index) => {
+        return this.props.players.map( (item, index) => {
             return (
                 <View key={index}>
                     <TouchableOpacity 
                         style={styles.avatar_view}
-                        onPress={() => this.openPlayerManager(item)} >
+                        onPress={() => this.openPlayerManager(index)} >
                         <Image
                             source={item.img}
                             style={styles.avatar_img} />
@@ -35,35 +42,41 @@ export default class GameScreen extends React.Component {
                 </View>
             );
         });
-
-        return (
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly',  flexWrap: 'wrap', margin: 10}}>
-                {content}
-            </View>
-        );
     }
 
-    openPlayerManager = (item) => {
-        this.props.navigation.push('JogadorManager')
+    openPlayerManager = (index) => {
+        this.props.navigation.push('JogadorManager', {
+            idxPlayerToUpdate: index,
+            onNavigateBack: this.handleOnNavigateBack
+        })
     }
 
     renderButton() {
-        if(this.state.jogadores.length >= 3){
+        if(this.props.players.length >= 3){
             return (
-                <Text style={[styles.item_diff, styles.text_default, { height: '100%', textAlign: 'center', textAlignVertical: 'center', borderRadius: 5}]} >
+                <Text 
+                    onPress={() => this.props.navigation.push('Roles')}
+                    style={[styles.item_diff, styles.text_default, { height: '100%', textAlign: 'center', textAlignVertical: 'center', borderRadius: 5}]} >
                     PRÓXIMO 
                 </Text>
             );
         } else {
-            const qtde = 3 - this.state.jogadores.length;
-            const str = qtde > 1 ? 'JOGADORES' : 'JOGADOR';
+            const qtde = 3 - this.props.players.length;
+            const strJogador = qtde > 1 ? 'JOGADORES' : 'JOGADOR';
             return (
                 <Text style={[styles.text_default, { backgroundColor: '#757575', height: '100%', textAlign: 'center', textAlignVertical: 'center', borderRadius: 5}]}>
-                    ADICIONE MAIS {`${qtde} ${str}`}
+                    ADICIONE MAIS {`${qtde} ${strJogador}`}
                 </Text>
             );
         }
     }
+
+    // Workaround para forçar um re-render ao usar o goBack na tela JogadorManagerScreen
+    handleOnNavigateBack = (foo) => {
+        this.setState({
+          foo
+        })
+      }
     
     render() {
         return (
@@ -78,7 +91,7 @@ export default class GameScreen extends React.Component {
                         <Title>Jogadores</Title>
                     </Body>
                     <Right>
-                        <Button transparent onPress={() => this.openPlayerManager() }>
+                        <Button transparent onPress={() => this.openPlayerManager(false) }>
                             <Icon name='add' />
                         </Button>
                     </Right>
@@ -93,7 +106,9 @@ export default class GameScreen extends React.Component {
 
                     <View style={{flex: 5}}>
                         <ScrollView>
-                            {this.renderJogadores()}
+                            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly',  flexWrap: 'wrap', margin: 10}}>
+                                {this.renderJogadores()}
+                            </View>
                         </ScrollView>
                     </View>
 
@@ -106,3 +121,6 @@ export default class GameScreen extends React.Component {
     }
 
 }
+
+const mapStateToProps = state => ({ ...state.GameplayReducer })
+export default connect(mapStateToProps, { setPlayers })(GameScreen)
