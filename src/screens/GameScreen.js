@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Content } from 'native-base';
+import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Content, Footer, FooterTab } from 'native-base';
 import styles from '../css/Style';
 import { connect } from 'react-redux';
 import { setPlayers } from '@services/redux/actions/GameplayActions'
@@ -116,6 +116,13 @@ class GameScreen extends React.Component {
                         {this.renderButton()}
                     </View>
                 </Content>
+                {/* <Footer style={{height: 60}}>
+                    <FooterTab style={{backgroundColor: '#FFF', padding: 15}}>
+                        <Button full style={{alignSelf: 'center', backgroundColor: "#F00", height: 45}}>
+                            <Text style={{color: '#FFF', fontSize: 14}}>RECUPERAR</Text>
+                        </Button>
+                    </FooterTab>
+                </Footer> */}
             </Container>
         );
     }

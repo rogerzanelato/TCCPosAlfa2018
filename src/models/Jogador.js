@@ -1,4 +1,4 @@
-class Jogador {
+export default class Jogador {
     name = '';
     img = '';
 
@@ -7,5 +7,3 @@ class Jogador {
       this.img = img;
     }
 }
-
-export default Jogador;

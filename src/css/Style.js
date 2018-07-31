@@ -59,5 +59,13 @@ export default StyleSheet.create({
         height: 85,
         borderRadius: 42.5,
         marginBottom: 10
-    }
+    },
+    list_item_title: {
+        fontSize: 16,
+        fontWeight: '700'
+    },
+    list_item_description: {
+        fontSize: 12,
+        color: '#424242'
+    },
 });
