@@ -155,7 +155,6 @@ class RolesScreen extends React.Component {
     }
 
     startGame() {
-
         const tmpSelectedRoles = this.selectedRoles.slice();
 
         const players = this.props.players.reduce((final, player, idx, arr) => {
@@ -168,13 +167,14 @@ class RolesScreen extends React.Component {
 
         }, []);
 
+        // Se nenhum papel de assassino foi distribuído pelo método aleatorio, atribuímos-o aqui
         const idxAssassin = players.findIndex( (val) => val.role.idRole === 2 );
-        if ( idxAssassin === 0 ) {
+        if ( idxAssassin === -1 ) {
             const idxRandomPlayer = Util.randomIntFromInterval(0, players.length - 1)
             players[idxRandomPlayer].role = new Roles.Assassin();
         }
 
-        console.log(players);
+        // Todo, limpar stack navigator e utilizar o Redux para salvar os novos players
         this.props.navigation.navigate('StartGame');
     }
 
@@ -183,7 +183,6 @@ class RolesScreen extends React.Component {
         let Role: IRole;
 
         if ( this.selectedRoles.length > 0 ) {
-            console.log(this.selectedRoles);
             const idxRandomRole = Util.randomIntFromInterval(0, this.selectedRoles.length - 1)
             Role = this.selectedRoles[idxRandomRole]
         
@@ -194,7 +193,9 @@ class RolesScreen extends React.Component {
             if ( qtdePlayersWithThisRole >= qtdePlayersMax ) {
                 this.selectedRoles.splice(idxRandomRole, 1);
             }
-        } else {
+        } else {  // Cai aqui caso não seja mais possível obedecer à regra dos pesos, devido à não haver papéis o bastante selecionados
+            
+            // Todo: Verificar possibilidade de distribuir os papéis aqui de forma mais inteligente. Ex: De acordo com a quantidade de heróis e vilões, mas ainda mantendo o aspecto aleatório
             const idxRandomRole = Util.randomIntFromInterval(0, tmpSelectedRoles.length - 1)
             Role = tmpSelectedRoles[idxRandomRole]
         }
