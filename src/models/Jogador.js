@@ -1,6 +1,7 @@
 export default class Jogador {
-    name = '';
-    img = '';
+    name: string = '';
+    img: string = '';
+    role: IRole;
 
     constructor(name, img){
       this.name = name;

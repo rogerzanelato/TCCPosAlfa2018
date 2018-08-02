@@ -116,8 +116,8 @@ class JogadorManagerScreen extends React.Component {
                 </Header>
 
                 <Content contentContainerStyle={{flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: 20, paddingRight: 25}} padder>
-                    <Image source={this.state.img} style={{width: 210, height: 210, borderRadius: 105}}/>
-                        <Form style={{width: '100%'}}>
+                    <Image source={this.state.img} style={styles.avatar_img_large}/>
+                        <Form style={{width: '100%', marginTop: 15}}>
                             <Item floatingLabel>
                                 <Label>Nome do jogador</Label>
                                 <Input

@@ -1,17 +1,20 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Container, Header, Left, Body, Icon, Right, Button, List, ListItem, Title, Text, Content, Switch } from 'native-base';
+import { View, Alert } from 'react-native';
+import { Container, Header, Left, Body, Icon, Right, Button, List, ListItem, 
+        Title, Text, Content, Switch, Footer, FooterTab } from 'native-base';
 import styles from '../css/Style';
-import * as roles from '@models/WrappedRoles';
-import * as rolesTypes from '@models/roles/RoleTypes';
-import IRole from '@models/roles/IRole';
+import * as Roles from '@models/WrappedRoles';
+import * as RolesType from '@models/roles/RolesType';
 import SwitchWrapper from '@components/SwitchWrapper';
+import Util from '@utils/Util';
+import { connect } from 'react-redux';
+import { setPlayers } from '@services/redux/actions/GameplayActions'
 
-export default class RolesScreen extends React.Component {
+class RolesScreen extends React.Component {
     constructor(props){
         super(props);
         
-        this.selected = [];
+        this.selectedRoles = [];
         
         this.state = {
             error: '',
@@ -20,12 +23,13 @@ export default class RolesScreen extends React.Component {
     }
 
     componentDidMount() {
-        const keys = Object.keys(roles)
+        const keys = Object.keys(Roles)
         const allRoles = [];
         const selected = [];
 
+        // Percorre todas as classes exportadas na variável Roles
         keys.forEach( (val) => {
-            const role = new roles[val];
+            const role = new Roles[val]();
             // Todo: Verificar se o papel está habilitado para conta do usuário
             role.selected = true;
 
@@ -33,8 +37,8 @@ export default class RolesScreen extends React.Component {
             allRoles.push(role);
         })
 
-        this.setState({ allRoles: allRoles}, () => {
-            this.selected = selected; // No momento permitiremos que todos comecem selecionados
+        this.setState({ allRoles: allRoles }, () => {
+            this.selectedRoles = selected; // No momento permitiremos que todos comecem selecionados
         })
     }
 
@@ -47,13 +51,13 @@ export default class RolesScreen extends React.Component {
             const component = this.createListItem(val, idx);
 
             switch (val.type) {
-                case rolesTypes.VILLAIN:
+                case RolesType.VILLAIN:
                     villains.push(component);
                     break;
-                case rolesTypes.HERO:
+                case RolesType.HERO:
                     heroes.push(component);
                     break;
-                case rolesTypes.OTHER:
+                case RolesType.OTHER:
                     others.push(component);
                     break;
             }
@@ -83,6 +87,9 @@ export default class RolesScreen extends React.Component {
     }
 
     createListItem(Role: IRole, idx: number) {
+        const disabled = Role.idRole === 2; // É obrigatório que haja pelo menos um assassino no jogo
+        
+
         return (
             <ListItem key={idx}>
                 {/* <Left/> */}
@@ -91,9 +98,10 @@ export default class RolesScreen extends React.Component {
                     <Text style={styles.list_item_description}>{Role.description}</Text>
                 </Body>
                 <Right>
-                    <SwitchWrapper 
+                    <SwitchWrapper
+                        disabled={disabled}
                         switched={Role.selected}
-                        ref={component => Role.ref = component} // Adicionamos ao objeto uma referência ao componente
+                        ref={component => Role.ref = component} // Adicionamos ao objeto uma referência do componente
                         onValueChange={(value) => { this.switchItemOnSelectedList(idx, value) }}
                     />
                 </Right>
@@ -104,14 +112,14 @@ export default class RolesScreen extends React.Component {
     switchItemOnSelectedList(idx: number, value: boolean) {
         const Role = this.state.allRoles[idx];
 
-        const idxSelected = this.selected.findIndex((val) => {
+        const idxSelected = this.selectedRoles.findIndex((val) => {
             return val.type === Role.type && val.name === Role.name;
         })
 
         if ( idxSelected !== -1 && value === false ) {
-            this.selected.splice(idxSelected, 1);
+            this.selectedRoles.splice(idxSelected, 1);
         }  else if ( idxSelected === -1 && value === true ){
-            this.selected.push(Role);
+            this.selectedRoles.push(Role);
         }
         
         Role.ref.setState({
@@ -119,6 +127,81 @@ export default class RolesScreen extends React.Component {
         })
     }
     
+    validateSelectedItems() {
+        const heroes = this.selectedRoles.filter((val) => { return val.type === RolesType.HERO });
+        const villains = this.selectedRoles.filter((val) => { return val.type === RolesType.VILLAIN });
+
+        let error = '';
+        let title = '';
+
+        if ( heroes.length === 0 ) { 
+            title = 'Precisamos de vítimas!';
+            error += 'Adicione pelo menos um papel de cidadão ao jogo!\n\n';
+        }
+        if ( villains.length === 0 ) {
+            title = 'Fácil demais, não acha?'
+            error += 'Adicione pelo menos um papel de vilão ao jogo!';
+        }
+
+        if ( villains.length === 0 && heroes.length === 0 ) {
+            title = 'Assim não vai ter graça!';
+        }
+
+        if (error === '') {
+            this.startGame();
+        } else {
+            Alert.alert(title, error);
+        }
+    }
+
+    startGame() {
+
+        const tmpSelectedRoles = this.selectedRoles.slice();
+
+        const players = this.props.players.reduce((final, player, idx, arr) => {
+            
+            const role = this.getRandomRole(arr.length, final, tmpSelectedRoles);
+            player.role = role;
+            final.push(player);
+
+            return final;
+
+        }, []);
+
+        const idxAssassin = players.findIndex( (val) => val.role.idRole === 2 );
+        if ( idxAssassin === 0 ) {
+            const idxRandomPlayer = Util.randomIntFromInterval(0, players.length - 1)
+            players[idxRandomPlayer].role = new Roles.Assassin();
+        }
+
+        console.log(players);
+        this.props.navigation.navigate('StartGame');
+    }
+
+    getRandomRole(qtdePlayers: number, playersAlreadyDone: Array, tmpSelectedRoles: Array): IRole {
+        
+        let Role: IRole;
+
+        if ( this.selectedRoles.length > 0 ) {
+            console.log(this.selectedRoles);
+            const idxRandomRole = Util.randomIntFromInterval(0, this.selectedRoles.length - 1)
+            Role = this.selectedRoles[idxRandomRole]
+        
+            const qtdePlayersWithThisRole = playersAlreadyDone.filter( (val) => val.role.idRole === Role.idRole ).length + 1 // +1 porque estamos contato com o papel atual
+            const qtdePlayersMax = Math.round( (Role.weight / Role.weightIdxDivisor) * qtdePlayers )
+    
+            // Se a distribuição do papel atual já ultrapassar o permitido, removemos-o das opções
+            if ( qtdePlayersWithThisRole >= qtdePlayersMax ) {
+                this.selectedRoles.splice(idxRandomRole, 1);
+            }
+        } else {
+            const idxRandomRole = Util.randomIntFromInterval(0, tmpSelectedRoles.length - 1)
+            Role = tmpSelectedRoles[idxRandomRole]
+        }
+
+        return Role;
+    }
+
     render(){
         return (
             <Container>
@@ -143,8 +226,20 @@ export default class RolesScreen extends React.Component {
                         
                         { this.listRolesAvailable() }
                 </Content>
+
+                <Footer style={styles.footer}>
+                    <FooterTab style={styles.tab_footer}>
+                        <Button full style={[styles.item_diff, styles.button_on_footer]}
+                            onPress={() => this.validateSelectedItems()}>
+                            <Text style={styles.text_inside_button_on_footer}> INICIAR JOGO </Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
             </Container>
         );
     }
 
 }
+
+const mapStateToProps = state => ({ ...state.GameplayReducer })
+export default connect(mapStateToProps, { setPlayers })(RolesScreen)

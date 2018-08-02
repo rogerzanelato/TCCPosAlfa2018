@@ -60,6 +60,20 @@ export default StyleSheet.create({
         borderRadius: 42.5,
         marginBottom: 10
     },
+    avatar_img_medium: {
+        width: 165,
+        height: 165,
+        borderRadius: 82.5
+    },
+    avatar_img_large: {
+        width: 190,
+        height: 190,
+        borderRadius: 95
+    },
+    avatar_border: {
+        borderWidth: 5,
+        borderColor: "#000"
+    },
     list_item_title: {
         fontSize: 16,
         fontWeight: '700'
@@ -68,4 +82,34 @@ export default StyleSheet.create({
         fontSize: 12,
         color: '#424242'
     },
+    footer: {
+        height: 60,
+        borderTopWidth: 0.4,
+        borderTopColor: '#c3c3c3'
+    },
+    tab_footer: {
+        backgroundColor: '#FFF',
+        padding: 15
+    },
+    button_on_footer: {
+        alignSelf: 'center',
+        height: 40
+    },
+    text_inside_button_on_footer: {
+        color: '#FFF',
+        fontSize: 14
+    },
+    container: {
+        padding: 20
+    },
+    margin_paragraph: {
+        marginTop: 15
+    },
+    title_gamecycle: {
+        fontSize: 20,
+        fontWeight: '700'
+    },
+    paragraph_gamecycle: {
+        fontSize: 16
+    }
 });

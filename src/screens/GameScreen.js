@@ -21,7 +21,9 @@ class GameScreen extends React.Component {
                 players: [
                     new Jogador('Jogador 1', require('@imgs/avatares/av1.png')),
                     new Jogador('Jogador 2', require('@imgs/avatares/av2.png')),
-                    new Jogador('Jogador 3', require('@imgs/avatares/av3.png'))
+                    new Jogador('Jogador 3', require('@imgs/avatares/av3.png')),
+                    new Jogador('Jogador 4', require('@imgs/avatares/av4.png')),
+                    new Jogador('Jogador 5', require('@imgs/avatares/av5.png')),
                 ]
             });
         }
@@ -54,19 +56,19 @@ class GameScreen extends React.Component {
     renderButton() {
         if(this.props.players.length >= 3){
             return (
-                <Text 
-                    onPress={() => this.props.navigation.push('Roles')}
-                    style={[styles.item_diff, styles.text_default, { height: '100%', textAlign: 'center', textAlignVertical: 'center', borderRadius: 5}]} >
-                    PRÓXIMO 
-                </Text>
+                <Button full 
+                    onPress={() => this.props.navigation.push('Roles')} 
+                    style={[styles.button_on_footer, styles.item_diff]}>
+                    <Text style={styles.text_inside_button_on_footer}> PRÓXIMO </Text>
+                </Button>
             );
         } else {
             const qtde = 3 - this.props.players.length;
             const strJogador = qtde > 1 ? 'JOGADORES' : 'JOGADOR';
             return (
-                <Text style={[styles.text_default, { backgroundColor: '#757575', height: '100%', textAlign: 'center', textAlignVertical: 'center', borderRadius: 5}]}>
-                    ADICIONE MAIS {`${qtde} ${strJogador}`}
-                </Text>
+                <Button full style={[{backgroundColor: "#757575"}, styles.button_on_footer]}>
+                    <Text style={styles.text_inside_button_on_footer}> ADICIONE MAIS {`${qtde} ${strJogador}`}</Text>
+                </Button>
             );
         }
     }
@@ -111,18 +113,13 @@ class GameScreen extends React.Component {
                             </View>
                         </ScrollView>
                     </View>
-
-                    <View style={{flex: 0.5, borderTopColor: '#cccccc', borderTopWidth: 1, padding: 10}}>
-                        {this.renderButton()}
-                    </View>
                 </Content>
-                {/* <Footer style={{height: 60}}>
-                    <FooterTab style={{backgroundColor: '#FFF', padding: 15}}>
-                        <Button full style={{alignSelf: 'center', backgroundColor: "#F00", height: 45}}>
-                            <Text style={{color: '#FFF', fontSize: 14}}>RECUPERAR</Text>
-                        </Button>
+
+                <Footer style={styles.footer}>
+                    <FooterTab style={styles.tab_footer}>
+                        {this.renderButton()}
                     </FooterTab>
-                </Footer> */}
+                </Footer>
             </Container>
         );
     }
