@@ -4,7 +4,7 @@ import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Conten
 import styles from '../css/Style';
 import { connect } from 'react-redux';
 import { setPlayers } from '@services/redux/actions/GameplayActions'
-import Jogador from '@models/Jogador';
+import Player from '@models/player/Player';
 
 class GameScreen extends React.Component {
     constructor(props) {
@@ -19,11 +19,11 @@ class GameScreen extends React.Component {
         if ( this.props.players.length === 0 ) {
             this.props.setPlayers({
                 players: [
-                    new Jogador('Jogador 1', require('@imgs/avatares/av1.png')),
-                    new Jogador('Jogador 2', require('@imgs/avatares/av2.png')),
-                    new Jogador('Jogador 3', require('@imgs/avatares/av3.png')),
-                    new Jogador('Jogador 4', require('@imgs/avatares/av4.png')),
-                    new Jogador('Jogador 5', require('@imgs/avatares/av5.png')),
+                    new Player('Jogador 1', require('@imgs/avatares/av1.png')),
+                    new Player('Jogador 2', require('@imgs/avatares/av2.png')),
+                    new Player('Jogador 3', require('@imgs/avatares/av3.png')),
+                    new Player('Jogador 4', require('@imgs/avatares/av4.png')),
+                    new Player('Jogador 5', require('@imgs/avatares/av5.png')),
                 ]
             });
         }

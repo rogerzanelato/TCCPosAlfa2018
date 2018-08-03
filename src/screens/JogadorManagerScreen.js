@@ -4,7 +4,7 @@ import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Conten
 import styles from '../css/Style';
 import { connect } from 'react-redux';
 import { setPlayers } from '@services/redux/actions/GameplayActions'
-import Jogador from '@models/Jogador';
+import Player from '@models/player/Player';
 import Util from '@utils/Util';
 
 const imgs = [
@@ -42,7 +42,7 @@ class JogadorManagerScreen extends React.Component {
 
     savePlayer() {
         const players = this.props.players;
-        const player = new Jogador(this.state.name, this.state.img);
+        const player = new Player(this.state.name, this.state.img);
         
         const idx = this.props.navigation.getParam('idxPlayerToUpdate', false);
         if ( idx !== false ) {

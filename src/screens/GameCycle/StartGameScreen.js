@@ -1,11 +1,13 @@
 import React from 'react';
-import { Image, Keyboard, TouchableOpacity, Alert, View } from 'react-native';
+import { Image, Alert, View } from 'react-native';
 import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Content, Form, Item, Label, Input  } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
-import { setPlayers } from '@services/redux/actions/GameplayActions'
-import Jogador from '@models/Jogador';
+import { setAll } from '@services/redux/actions/GameplayActions'
+import Player from '@models/player/Player';
 import Util from '@utils/Util';
+import BackHandlerIntercept from '@components/BackHandlerIntercept';
+
 
 class StartGameScreen extends React.Component {
     constructor(props){
@@ -14,6 +16,26 @@ class StartGameScreen extends React.Component {
         this.state = {
             error: ''
         }
+    }
+
+    goNext() {
+        this.props.setAll({
+            gameStatus: 1,
+            playerTurn: 0,
+            dayNumber: 0,
+            players: this.props.players
+        })
+    }
+
+    onBackPress() {
+        Alert.alert(
+            '',
+            'Deseja mesmo sair deste jogo?',
+            [
+                {text: 'CANCELAR'},
+                {text: 'SAIR', onPress: () => this.props.navigation.navigate('Roles') },
+            ]
+        )
     }
 
     render(){
@@ -25,6 +47,8 @@ class StartGameScreen extends React.Component {
                     </Body>
                     <Right />
                 </Header>
+
+                <BackHandlerIntercept handleEvent={() => this.onBackPress()} />
 
                 <Content contentContainerStyle={{flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: 50}} padder>
                     <Image source={this.props.players[0].img} style={[styles.avatar_img_medium, styles.avatar_border]}/>
@@ -42,7 +66,8 @@ class StartGameScreen extends React.Component {
                         </Text>
                     </View>
 
-                    <Button style={[{alignSelf: 'center'}, styles.margin_paragraph]}>
+                    <Button style={[{alignSelf: 'center'}, styles.margin_paragraph, styles.item_diff]} 
+                            onPress={() => this.goNext()}>
                         <Text>PRONTO</Text>
                     </Button>
                 </Content>
@@ -52,4 +77,4 @@ class StartGameScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({ ...state.GameplayReducer })
-export default connect(mapStateToProps, { setPlayers })(StartGameScreen)
+export default connect(mapStateToProps, { setAll })(StartGameScreen)

@@ -8,7 +8,7 @@ import * as RolesType from '@models/roles/RolesType';
 import SwitchWrapper from '@components/SwitchWrapper';
 import Util from '@utils/Util';
 import { connect } from 'react-redux';
-import { setPlayers } from '@services/redux/actions/GameplayActions'
+import { setPlayers } from '@services/redux/actions/GameplayActions';
 
 class RolesScreen extends React.Component {
     constructor(props){
@@ -174,11 +174,11 @@ class RolesScreen extends React.Component {
             players[idxRandomPlayer].role = new Roles.Assassin();
         }
 
-        // Todo, limpar stack navigator e utilizar o Redux para salvar os novos players
+        this.props.setPlayers({ players: players });
         this.props.navigation.navigate('StartGame');
     }
 
-    getRandomRole(qtdePlayers: number, playersAlreadyDone: Array, tmpSelectedRoles: Array): IRole {
+    getRandomRole(qtdePlayers: number, playersAlreadyDone: Array<Player>, tmpSelectedRoles: Array<IRole>): IRole {
         
         let Role: IRole;
 
