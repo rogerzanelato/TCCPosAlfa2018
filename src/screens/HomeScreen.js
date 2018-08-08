@@ -16,7 +16,7 @@ class HomeScreen extends React.Component {
     render() {
         return (
             <Container>
-                <Header noLeft androidStatusBarColor="#000" style={styles.header_main}>
+                <Header noLeft androidStatusBarColor="#212121" style={styles.header_main}>
                     <Body>
                         <Title>Máfia</Title>
                     </Body>

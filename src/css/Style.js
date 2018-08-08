@@ -5,7 +5,6 @@ const color2 = '#d50000'; // Diff Button Background Color
 const color3 = '#212121'; // Main Button Background
 const color4 = 'steelblue'; // Main Background
 const color5 = '#424242'; // Header Background Color
-const color6 = '#000'; // Status Bar
 
 const font1 = 14;
 
@@ -71,8 +70,8 @@ export default StyleSheet.create({
         borderRadius: 95
     },
     avatar_border: {
-        borderWidth: 5,
-        borderColor: "#000"
+        borderWidth: 4,
+        borderColor: '#FFF'
     },
     list_item_title: {
         fontSize: 16,
@@ -103,13 +102,14 @@ export default StyleSheet.create({
         padding: 20
     },
     margin_paragraph: {
-        marginTop: 15
+        marginTop: 20
     },
     title_gamecycle: {
         fontSize: 20,
-        fontWeight: '700'
+        color: '#FFF'
     },
     paragraph_gamecycle: {
-        fontSize: 16
+        fontSize: 16,
+        color: '#FFF'
     }
 });

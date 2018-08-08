@@ -66,7 +66,7 @@ class RolesScreen extends React.Component {
         return (
             <List>
                 <ListItem itemDivider>
-                    <Text>Cidadões</Text>
+                    <Text>Cívis</Text>
                 </ListItem>
             
                 { heroes }
@@ -78,7 +78,7 @@ class RolesScreen extends React.Component {
                 { villains }
 
                 <ListItem itemDivider>
-                    <Text>Outros</Text>
+                    <Text>Especiais</Text>
                 </ListItem>
             
                 { others }
@@ -206,7 +206,7 @@ class RolesScreen extends React.Component {
     render(){
         return (
             <Container>
-                <Header androidStatusBarColor="#000" style={styles.header_main}>
+                <Header androidStatusBarColor="#212121" style={styles.header_main}>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack() }>
                             <Icon name='arrow-back' />

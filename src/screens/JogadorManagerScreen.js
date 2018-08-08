@@ -101,7 +101,7 @@ class JogadorManagerScreen extends React.Component {
     render(){
         return (
             <Container>
-                <Header androidStatusBarColor="#000" style={styles.header_main}>
+                <Header androidStatusBarColor="#212121" style={styles.header_main}>
                     <Left>
                         <Button transparent onPress={() => this.goBack()}>
                             <Icon name='close' style={styles.title_main_color} />

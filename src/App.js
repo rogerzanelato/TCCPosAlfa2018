@@ -7,6 +7,7 @@ import ConfigScreen from '@screens/ConfigScreen';
 import GameScreen from '@screens/GameScreen';
 import RolesScreen from '@screens/RolesScreen';
 import StartGameScreen from '@screens/GameCycle/StartGameScreen';
+import DayNightScreen from '@screens/GameCycle/DayNightScreen';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './services/redux/reducers';
@@ -20,7 +21,8 @@ const SimpleApp = StackNavigator({
     CadJogador: { screen: CadJogadorScreen },
     JogadorManager: { screen: JogadorManagerScreen },
     Roles: { screen: RolesScreen },
-    StartGame: { screen: StartGameScreen }
+    StartGame: { screen: StartGameScreen },
+    DayNight: { screen: DayNightScreen }
   },
   {
     initialRouteName: 'Home',
