@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const color1 = '#FFF'; // Button Text Color
 const color2 = '#d50000'; // Diff Button Background Color
 const color3 = '#212121'; // Main Button Background
-const color4 = 'steelblue'; // Main Background
 const color5 = '#424242'; // Header Background Color
 
 const font1 = 14;
@@ -70,8 +69,11 @@ export default StyleSheet.create({
         borderRadius: 95
     },
     avatar_border: {
-        borderWidth: 4,
+        borderWidth: 3,
         borderColor: '#FFF'
+    },
+    border_diff: {
+        borderColor: color2
     },
     list_item_title: {
         fontSize: 16,
@@ -105,11 +107,18 @@ export default StyleSheet.create({
         marginTop: 20
     },
     title_gamecycle: {
-        fontSize: 20,
+        fontSize: 18,
+        color: '#FFF'
+    },
+    big_title_gamecycle: {
+        fontSize: 22,
         color: '#FFF'
     },
     paragraph_gamecycle: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#FFF'
+    },
+    align_center: {
+        alignSelf: 'center'
     }
 });

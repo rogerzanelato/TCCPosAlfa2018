@@ -8,6 +8,8 @@ import GameScreen from '@screens/GameScreen';
 import RolesScreen from '@screens/RolesScreen';
 import StartGameScreen from '@screens/GameCycle/StartGameScreen';
 import DayNightScreen from '@screens/GameCycle/DayNightScreen';
+import PlayerConfirmScreen from '@screens/GameCycle/PlayerConfirmScreen';
+import PlayerActionScreen from '@screens/GameCycle/PlayerActionScreen';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './services/redux/reducers';
@@ -22,7 +24,9 @@ const SimpleApp = StackNavigator({
     JogadorManager: { screen: JogadorManagerScreen },
     Roles: { screen: RolesScreen },
     StartGame: { screen: StartGameScreen },
-    DayNight: { screen: DayNightScreen }
+    DayNight: { screen: DayNightScreen },
+    PlayerConfirm: { screen: PlayerConfirmScreen },
+    PlayerAction: { screen: PlayerActionScreen }
   },
   {
     initialRouteName: 'Home',

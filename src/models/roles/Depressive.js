@@ -1,5 +1,7 @@
+import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
+import Default from '@components/roles/Default'
 
 export default class Depressive implements IRole {
     name = 'Depressivo';
@@ -9,4 +11,6 @@ export default class Depressive implements IRole {
     idRole = 5;
     weight = 1;
     weightIdxDivisor = 10;
+
+    component = ({...props}) => <Default {...props} />;
 }

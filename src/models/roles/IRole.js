@@ -8,10 +8,11 @@
 export interface IRole {
     name: string;
     description: string;
-    descriptionActions?: string;
+    descriptionActions: string;
     type: number;
     idRole: number;
     weight: number;
     weightIdxDivisor: number;
     actions?: Array<IAction>;
+    component: Object;
 }

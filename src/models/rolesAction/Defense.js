@@ -3,18 +3,12 @@ import * as RolesActionType from "./RolesActionType";
 import * as PlayerStatusType from "../player/PlayerStatusType";
 
 export default class Defense implements IAction {
-    name: string = 'PROTEGER';
+    name: string;
     icon: string;
     type: number = RolesActionType.DEFENSE;
+    charge: 99999;
 
-    constructor(name: string) {
+    constructor(name: string = 'PROTEGER') {
         this.name = name;
     }
-
-    action(players ?: Array<IRole>, target ?: IRole): void {
-        if ( target !== undefined ) {
-            target.status.push(PlayerStatusType.BEING_DEFENSED);
-        }
-    }
-    
 }

@@ -25,7 +25,7 @@ class StartGameScreen extends React.Component {
             players: this.props.players
         })
 
-        this.props.navigation.navigate('DayNight');
+        this.props.navigation.replace('DayNight');
     }
 
     render(){
