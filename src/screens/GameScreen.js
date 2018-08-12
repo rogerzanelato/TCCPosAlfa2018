@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Container, Header, Left, Body, Icon, Right, Button, Title, Text, Content, Footer, FooterTab } from 'native-base';
+import { Container, Header, Left, Body, Icon, Right, Button, Title, 
+        Text, Content, Footer, FooterTab } from 'native-base';
 import styles from '../css/Style';
 import { connect } from 'react-redux';
 import { setPlayers } from '@services/redux/actions/GameplayActions'
@@ -33,12 +34,9 @@ class GameScreen extends React.Component {
         return this.props.players.map( (item, index) => {
             return (
                 <View key={index}>
-                    <TouchableOpacity 
-                        style={styles.avatar_view}
+                    <TouchableOpacity style={styles.avatar_view}
                         onPress={() => this.openPlayerManager(index)} >
-                        <Image
-                            source={item.img}
-                            style={styles.avatar_img} />
+                        <Image source={item.img} style={styles.avatar_img} />
                         <Text>{item.name}</Text>
                     </TouchableOpacity>
                 </View>
@@ -66,7 +64,7 @@ class GameScreen extends React.Component {
             const qtde = 3 - this.props.players.length;
             const strJogador = qtde > 1 ? 'JOGADORES' : 'JOGADOR';
             return (
-                <Button full style={[{backgroundColor: "#757575"}, styles.button_on_footer]}>
+                <Button full style={[styles.item_disabled, styles.button_on_footer]}>
                     <Text style={styles.text_inside_button_on_footer}> ADICIONE MAIS {`${qtde} ${strJogador}`}</Text>
                 </Button>
             );

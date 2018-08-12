@@ -7,8 +7,13 @@ export default class Defense implements IAction {
     icon: string;
     type: number = RolesActionType.DEFENSE;
     charge: 99999;
+    needTarget: boolean = true;
 
     constructor(name: string = 'PROTEGER') {
         this.name = name;
+    }
+
+    action(player: IPlayer) {
+        player.status.push(PlayerStatusType.BEING_DEFENSED)
     }
 }

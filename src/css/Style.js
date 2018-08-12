@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 const color1 = '#FFF'; // Button Text Color
 const color2 = '#d50000'; // Diff Button Background Color
 const color3 = '#212121'; // Main Button Background
-const color5 = '#424242'; // Header Background Color
+const color4 = '#757575'; // Main Button Background
+const color5 = '#424242'; // Status bar Background Color
 
 const font1 = 14;
 
@@ -33,6 +34,9 @@ export default StyleSheet.create({
     },
     bg_color3: {
         backgroundColor: color3
+    },
+    item_disabled: {
+        backgroundColor: color4
     },
     header_main: {
         backgroundColor: color5
@@ -69,11 +73,14 @@ export default StyleSheet.create({
         borderRadius: 95
     },
     avatar_border: {
-        borderWidth: 3,
+        borderWidth: 4,
         borderColor: '#FFF'
     },
     border_diff: {
         borderColor: color2
+    },
+    border_color3: {
+        borderColor: color3
     },
     list_item_title: {
         fontSize: 16,
@@ -120,5 +127,19 @@ export default StyleSheet.create({
     },
     align_center: {
         alignSelf: 'center'
+    },
+    button_gamecycle: {
+        minWidth: 80,
+        justifyContent: 'center'
+    },
+    badge_bottom_avatar_view: {
+        position: 'absolute',
+        bottom: 25,
+        right: 0
+    },
+    badge_top_avatar_view: {
+        position: 'absolute',
+        top: 0,
+        right: 0
     }
 });

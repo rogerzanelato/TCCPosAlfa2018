@@ -2,7 +2,8 @@ import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
 import Kill from '../rolesAction/Kill'
-import Default from '@components/roles/Default'
+import Nothing from '../rolesAction/Nothing'
+import AssassinView from '@components/roles/AssassinView'
 
 export default class Assassin implements IRole {
     name = 'Assassino';
@@ -13,7 +14,7 @@ export default class Assassin implements IRole {
     weight = 1;
     weightIdxDivisor = 4;
 
-    actions: Array<IAction> = [ new Kill() ];
+    actions: Array<IAction> = [ new Kill('MATAR'), new Nothing('PULAR') ];
 
-    component = ({...props}) => <Default {...props} />;
+    component = ({...props}) => <AssassinView {...props} />;
 }

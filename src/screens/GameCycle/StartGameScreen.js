@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, Dimensions} from 'react-native';
-import { Container, Header, Body, Right, Button, Title, Text, Content } from 'native-base';
+import { Container, Header, Body, Right, Button, Title, Text, Content, Icon } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
 import { setAll } from '@services/redux/actions/GameplayActions'
@@ -18,6 +18,13 @@ class StartGameScreen extends React.Component {
     }
 
     goNext() {
+        this.props.players.forEach(player => {
+            // resetar propriedades
+            player.votes = 0;
+            player.status.length = 0;
+            player.isAlive = true;
+        });
+
         this.props.setAll({
             gameStatus: GameStatus.NIGHTFALL,
             playerTurn: 0,
@@ -42,6 +49,7 @@ class StartGameScreen extends React.Component {
 
                 <LinearGradient colors={['#212121', '#424242', '#616161']} style={{ flex: 1 }}>
                     <Content contentContainerStyle={[styles.container_init]} padder>
+                    
                             <Image source={this.props.players[0].img} style={[styles.avatar_img_medium, styles.avatar_border]}/>
 
                             <View style={styles.container}>
@@ -59,7 +67,8 @@ class StartGameScreen extends React.Component {
 
                             <Button style={[{alignSelf: 'center'}, styles.margin_paragraph, styles.item_diff]} 
                                     onPress={() => this.goNext()}>
-                                <Text>PRONTO</Text>
+                                <Icon name='pistol' type='MaterialCommunityIcons' style={{marginRight: 0}}/>
+                                <Text style={{paddingLeft: 10}}>PRONTO</Text>
                             </Button>
                     </Content>
                 </LinearGradient>
