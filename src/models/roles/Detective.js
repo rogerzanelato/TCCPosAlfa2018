@@ -1,7 +1,9 @@
 import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
-import Default from '@components/roles/Default'
+import DefaultWithTargets from '@components/roles/DefaultWithTargets'
+import Clarividence from '../rolesAction/Clarividence'
+import Nothing from '../rolesAction/Nothing'
 
 export default class Detective implements IRole {
     name = 'Detetive';
@@ -12,5 +14,7 @@ export default class Detective implements IRole {
     weight = 1;
     weightIdxDivisor = 5;
 
-    component = ({...props}) => <Default {...props} />;
+    actions: Array<IAction> = [ new Clarividence('SELECIONAR'), new Nothing('PULAR') ];
+
+    component = ({...props}) => <DefaultWithTargets {...props} />;
 }

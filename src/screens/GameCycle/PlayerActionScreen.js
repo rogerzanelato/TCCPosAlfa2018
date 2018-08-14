@@ -18,12 +18,16 @@ class PlayerActionScreen extends React.Component {
     }
 
     goNext() {
-        const idxNewPlayerTurn = this.props.playerTurn + 1;
+        const oldIdxPlayerTurn = this.props.playerTurn;
+        
+        const idxNewPlayerTurn = this.props.players.findIndex( (player, idx) => {
+            return player.isAlive && idx > oldIdxPlayerTurn
+        });
 
-        // Se o novo idx for igual ao tamanho do array, significa que todos os jogadores efetuaram as ações
-        if ( idxNewPlayerTurn  === this.props.players.length ) {
+        // Se não houver um index menor que o antigo, indica que o Loop recomeçou
+        if ( idxNewPlayerTurn === -1 ) {
             // todo
-            console.log(this)
+            console.log('Game ended', this)
             alert('All players already done')
         } else {
             this.props.setPlayerTurn( {
@@ -41,7 +45,7 @@ class PlayerActionScreen extends React.Component {
             const Component = player.role.component;
 
             return (
-                <Component player={player} callback={() => { this.goNext() }}/>
+                <Component player={player} screenRef={this} callback={() => { this.goNext() }}/>
             )
         }
     }

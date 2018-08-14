@@ -1,3 +1,10 @@
+type ActionParams = {
+    target?: IPlayer,
+    screenRef?: object,
+    callback?: () => void,
+    players?: Array<IPlayer>
+};
+
 export interface IAction {
     name: string;
     icon?: string;
@@ -5,5 +12,5 @@ export interface IAction {
     charge: number;
     needTarget: boolean;
 
-    action(player: IPlayer, players?: Array<IPlayer>): void;
+    action(val: ActionParams): void;
 }

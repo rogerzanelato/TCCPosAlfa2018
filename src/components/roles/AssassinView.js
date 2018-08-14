@@ -3,7 +3,7 @@ import { Image, View, TouchableOpacity } from 'react-native';
 import { Button, Text, Badge, Icon } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
-import { setAll } from '@services/redux/actions/GameplayActions';
+import { setPlayers } from '@services/redux/actions/GameplayActions';
 
 /**
  * Não precisamos utilizar o setAll pois como estamos lidando com um Array de objetos
@@ -104,13 +104,15 @@ class AssassinView extends React.Component {
                 )                
             }
 
-            const player = this.state.targets[ this.state.playerTargeted ];
+            const params = {
+                target: this.state.targets[ this.state.playerTargeted ],
+                callback: this.props.callback
+            };
 
             return (
                 <Button key={key} style={btnStyles} 
                         onPress={() => { 
-                            item.action(player);  
-                            this.props.callback();
+                            item.action(params);
                         }}>
                     <Text>{item.name}</Text>
                 </Button>
@@ -142,4 +144,4 @@ class AssassinView extends React.Component {
     }
 }
 const mapStateToProps = state => ({ ...state.GameplayReducer })
-export default connect(mapStateToProps, { setAll })(AssassinView)
+export default connect(mapStateToProps, { setPlayers })(AssassinView)

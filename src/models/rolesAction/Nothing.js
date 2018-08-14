@@ -1,6 +1,5 @@
 import IAction from "./IAction";
 import * as RolesActionType from "./RolesActionType";
-import * as PlayerStatusType from '../player/PlayerStatusType';
 
 export default class Nothing implements IAction {
     name: string;
@@ -13,7 +12,7 @@ export default class Nothing implements IAction {
         this.name = name;
     }
     
-    action() {
-
+    action(val: ActionParams) {
+        val.callback();
     }
 }

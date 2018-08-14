@@ -67,8 +67,8 @@ class StartGameScreen extends React.Component {
 
                             <Button style={[{alignSelf: 'center'}, styles.margin_paragraph, styles.item_diff]} 
                                     onPress={() => this.goNext()}>
-                                <Icon name='pistol' type='MaterialCommunityIcons' style={{marginRight: 0}}/>
-                                <Text style={{paddingLeft: 10}}>PRONTO</Text>
+                                <Icon name='pistol' type='MaterialCommunityIcons'/>
+                                <Text>PRONTO</Text>
                             </Button>
                     </Content>
                 </LinearGradient>

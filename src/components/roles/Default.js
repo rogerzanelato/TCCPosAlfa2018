@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, View, TouchableOpacity} from 'react-native';
 import { Button, Text, Content } from 'native-base';
 import styles from '../../css/Style';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default class Default extends React.Component {
     constructor(props){

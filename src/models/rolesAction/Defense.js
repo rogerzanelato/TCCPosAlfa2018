@@ -13,7 +13,9 @@ export default class Defense implements IAction {
         this.name = name;
     }
 
-    action(player: IPlayer) {
-        player.status.push(PlayerStatusType.BEING_DEFENSED)
+    action(val: ActionParams) {
+        val.target.status.push(PlayerStatusType.BEING_DEFENSED);
+        
+        val.callback();
     }
 }

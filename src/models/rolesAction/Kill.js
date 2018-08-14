@@ -13,8 +13,10 @@ export default class Kill implements IAction {
         this.name = name;
     }
     
-    action(player: IPlayer) {
-        player.votes++;
-        player.status.push(PlayerStatusType.BEING_ATTACKED);
+    action(val: ActionParams) {
+        val.target.votes++;
+        val.target.status.push(PlayerStatusType.BEING_ATTACKED);
+
+        val.callback();
     }
 }

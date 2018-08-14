@@ -1,7 +1,9 @@
 import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
-import Default from '@components/roles/Default'
+import DefaultWithTargets from '@components/roles/DefaultWithTargets'
+import Nothing from '../rolesAction/Nothing'
+import ClarividenceVillain from '../rolesAction/ClarividenceVillain';
 
 export default class AssassinAdmirer implements IRole {
     name = 'Admirador do Assassino';
@@ -12,5 +14,7 @@ export default class AssassinAdmirer implements IRole {
     weight = 1;
     weightIdxDivisor = 5;
 
-    component = ({...props}) => <Default {...props} />;
+    actions: Array<IAction> = [ new ClarividenceVillain('SELECIONAR'), new Nothing('PULAR') ];
+
+    component = ({...props}) => <DefaultWithTargets {...props} />;
 }

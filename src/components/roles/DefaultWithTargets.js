@@ -9,7 +9,7 @@ import { setAll } from '@services/redux/actions/GameplayActions';
  * Não precisamos utilizar o setAll pois como estamos lidando com um Array de objetos
  * os dados são atualizados por referência
 */
-class AngelView extends React.Component {
+class DefaultWithTargets extends React.Component {
     constructor(props){
         super(props);
         
@@ -71,13 +71,17 @@ class AngelView extends React.Component {
                 )                
             }
 
-            const player = this.state.targets[ this.state.playerTargeted ];
+            const params = {
+                target: this.state.targets[ this.state.playerTargeted ],
+                callback: this.props.callback,
+                screenRef: this.props.screenRef,
+                players: this.props.players
+            };
 
             return (
                 <Button key={key} style={btnStyles} 
                         onPress={() => { 
-                            item.action(player);  
-                            this.props.callback();
+                            item.action(params);
                         }}>
                     <Text>{item.name}</Text>
                 </Button>
@@ -109,4 +113,4 @@ class AngelView extends React.Component {
     }
 }
 const mapStateToProps = state => ({ ...state.GameplayReducer })
-export default connect(mapStateToProps, { setAll })(AngelView)
+export default connect(mapStateToProps, { setAll })(DefaultWithTargets)
