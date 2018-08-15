@@ -11,6 +11,8 @@ import DayNightScreen from '@screens/GameCycle/DayNightScreen';
 import PlayerConfirmScreen from '@screens/GameCycle/PlayerConfirmScreen';
 import PlayerActionScreen from '@screens/GameCycle/PlayerActionScreen';
 import ShowPlayerRoleScreen from '@screens/GameCycle/ShowPlayerRoleScreen';
+import ResultScreen from '@screens/GameCycle/ResultScreen';
+import DiscussionTimeScreen from '@screens/GameCycle/DiscussionTimeScreen';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './services/redux/reducers';
@@ -28,7 +30,9 @@ const SimpleApp = StackNavigator({
     DayNight: { screen: DayNightScreen },
     PlayerConfirm: { screen: PlayerConfirmScreen },
     PlayerAction: { screen: PlayerActionScreen },
-    ShowPlayerRole: { screen: ShowPlayerRoleScreen }
+    ShowPlayerRole: { screen: ShowPlayerRoleScreen },
+    Result: { screen: ResultScreen },
+    DiscussionTime: { screen: DiscussionTimeScreen }
   },
   {
     initialRouteName: 'Home',

@@ -18,6 +18,7 @@ class StartGameScreen extends React.Component {
     }
 
     goNext() {
+
         this.props.players.forEach(player => {
             // resetar propriedades
             player.votes = 0;

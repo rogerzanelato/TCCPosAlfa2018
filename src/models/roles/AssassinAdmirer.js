@@ -1,7 +1,7 @@
 import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
-import DefaultWithTargets from '@components/roles/DefaultWithTargets'
+import DefaultWithTargets from '@components/actions/DefaultWithTargets'
 import Nothing from '../rolesAction/Nothing'
 import ClarividenceVillain from '../rolesAction/ClarividenceVillain';
 

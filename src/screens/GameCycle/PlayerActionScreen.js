@@ -3,7 +3,7 @@ import { Image, View, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { Container, Header, Body, Right, Button, Title, Text, Content } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
-import { setPlayerTurn } from '@services/redux/actions/GameplayActions'
+import { setPlayerTurn, setGameStatus } from '@services/redux/actions/GameplayActions'
 import ExitGameIntercept from '@components/ExitGameIntercept';
 import LinearGradient from 'react-native-linear-gradient';
 import * as GameStatus from '@models/game/GameStatusType';
@@ -26,9 +26,11 @@ class PlayerActionScreen extends React.Component {
 
         // Se não houver um index menor que o antigo, indica que o Loop recomeçou
         if ( idxNewPlayerTurn === -1 ) {
-            // todo
-            console.log('Game ended', this)
-            alert('All players already done')
+            // Mestre do jogo
+            this.props.setGameStatus({
+                gameStatus: GameStatus.FINISHED_ACTIONS
+            })
+            this.props.navigation.replace('DayNight')
         } else {
             this.props.setPlayerTurn( {
                 playerTurn: idxNewPlayerTurn
@@ -37,16 +39,24 @@ class PlayerActionScreen extends React.Component {
         }
     }
 
-    renderRoleComponent() {
+    renderVoteComponent(player) {
+
+    }
+
+    renderRoleComponent(player: IPlayer) {
+        const Component = player.role.component;
+
+        return (
+            <Component player={player} screenRef={this} callback={() => { this.goNext() }}/>
+        )
+    }
+
+    renderContent() {
         const idxPlayerTurn = this.props.playerTurn;
         const player = this.props.players[idxPlayerTurn];
 
         if ( player ) {
-            const Component = player.role.component;
-
-            return (
-                <Component player={player} screenRef={this} callback={() => { this.goNext() }}/>
-            )
+            return this.renderRoleComponent(player);
         }
     }
 
@@ -66,7 +76,7 @@ class PlayerActionScreen extends React.Component {
                         <ScrollView>
                             <Content contentContainerStyle={[styles.container_init, { justifyContent: 'flex-start', marginTop: 30}]} padder>
                                 
-                                {this.renderRoleComponent()}
+                                {this.renderContent()}
                         
                             </Content>
                         </ScrollView>
@@ -77,4 +87,4 @@ class PlayerActionScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({ ...state.GameplayReducer })
-export default connect(mapStateToProps, { setPlayerTurn })(PlayerActionScreen)
+export default connect(mapStateToProps, { setPlayerTurn, setGameStatus })(PlayerActionScreen)

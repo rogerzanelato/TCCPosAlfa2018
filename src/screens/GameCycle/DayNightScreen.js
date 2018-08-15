@@ -40,7 +40,10 @@ class DayNightScreen extends React.Component {
             })
             this.props.navigation.replace('PlayerConfirm')
         } else {
-            // Calculate End
+            this.props.setGameStatus({
+                gameStatus: GameStatus.DAWN
+            })
+            this.props.navigation.replace('Result')
         }
     }
 

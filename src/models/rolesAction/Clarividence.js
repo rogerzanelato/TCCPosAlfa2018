@@ -13,7 +13,7 @@ export default class Clarividence implements IAction {
     }
     
     action(val: ActionParams) {
-        val.screenRef.props.navigation.replace('ShowPlayerRole', {
+        val.screenRef.props.navigation.navigate('ShowPlayerRole', {
             player: val.target,
             callback: val.callback
         });

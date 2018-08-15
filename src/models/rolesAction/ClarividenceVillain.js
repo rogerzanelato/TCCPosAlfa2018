@@ -20,6 +20,6 @@ export default class ClarividenceVillain implements IAction {
             params.player = val.target;
         }
 
-        val.screenRef.props.navigation.replace('ShowPlayerRole', params);
+        val.screenRef.props.navigation.navigate('ShowPlayerRole', params);
     }
 }

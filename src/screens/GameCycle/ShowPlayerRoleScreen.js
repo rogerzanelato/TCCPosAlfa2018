@@ -17,7 +17,7 @@ export default class ShowPlayerRoleScreen extends React.Component {
     }
 
     goNext() {
-        this.props.navigation.replace('PlayerAction');
+        this.props.navigation.goBack();
         this.state.callback();
     }
 

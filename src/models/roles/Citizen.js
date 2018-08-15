@@ -1,7 +1,7 @@
 import React from 'react';
 import IRole from './IRole'
 import * as RolesType from './RolesType'
-import Default from '@components/roles/Default'
+import Default from '@components/actions/Default'
 
 export default class Citizen implements IRole {
     name = 'Cidadão';

@@ -3,7 +3,7 @@ import IRole from './IRole'
 import * as RolesType from './RolesType'
 import Defense from '../rolesAction/Defense'
 import Nothing from '../rolesAction/Nothing'
-import DefaultWithTargets from '@components/roles/DefaultWithTargets'
+import DefaultWithTargets from '@components/actions/DefaultWithTargets'
 
 export default class Angel implements IRole {
     name = 'Anjo';

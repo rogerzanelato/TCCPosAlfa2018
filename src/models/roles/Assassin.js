@@ -3,7 +3,7 @@ import IRole from './IRole'
 import * as RolesType from './RolesType'
 import Kill from '../rolesAction/Kill'
 import Nothing from '../rolesAction/Nothing'
-import AssassinView from '@components/roles/AssassinView'
+import AssassinView from '@components/actions/AssassinView'
 
 export default class Assassin implements IRole {
     name = 'Assassino';
