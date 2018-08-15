@@ -111,9 +111,7 @@ class AssassinView extends React.Component {
 
             return (
                 <Button key={key} style={btnStyles} 
-                        onPress={() => { 
-                            item.action(params);
-                        }}>
+                        onPress={() => item.action(params)}>
                     <Text>{item.name}</Text>
                 </Button>
             )

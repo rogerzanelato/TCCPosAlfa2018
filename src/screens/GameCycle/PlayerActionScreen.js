@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Container, Header, Body, Right, Button, Title, Text, Content } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import { setPlayerTurn, setGameStatus } from '@services/redux/actions/GameplayAc
 import ExitGameIntercept from '@components/ExitGameIntercept';
 import LinearGradient from 'react-native-linear-gradient';
 import * as GameStatus from '@models/game/GameStatusType';
+import PlayerPoll from '@components/actions/PlayerPoll'
 
 class PlayerActionScreen extends React.Component {
     constructor(props) {
@@ -26,26 +27,40 @@ class PlayerActionScreen extends React.Component {
 
         // Se não houver um index menor que o antigo, indica que o Loop recomeçou
         if ( idxNewPlayerTurn === -1 ) {
-            // Mestre do jogo
+            let newStatus = GameStatus.FINISHED_ACTIONS
+            let newScreen = 'DayNight'
+
+            // Se for votação direciona para tela de Result, se não, pra DayNight
+            if ( this.props.gameStatus !== GameStatus.PLAYERS_ACTION ) {
+                newStatus = GameStatus.POLL_FINISHED
+                newScreen = 'Result'
+            }
+                                
             this.props.setGameStatus({
-                gameStatus: GameStatus.FINISHED_ACTIONS
+                gameStatus: newStatus
             })
-            this.props.navigation.replace('DayNight')
+            this.props.navigation.replace(newScreen)
+
         } else {
             this.props.setPlayerTurn( {
                 playerTurn: idxNewPlayerTurn
             })
-            this.props.navigation.replace('PlayerConfirm')
+            
+            // Se o status do game for PLAYERS_ACTION está efetuando as ações dos papéis, se não é a votação
+            const newScreen = this.props.gameStatus === GameStatus.PLAYERS_ACTION ? 'PlayerConfirm' : 'PlayerAction';
+            this.props.navigation.replace(newScreen);
+
         }
     }
 
-    renderVoteComponent(player) {
-
+    renderPlayerPollComponent(player) {
+        return (
+            <PlayerPoll player={player} screenRef={this} callback={() => { this.goNext() }}/>
+        )
     }
 
     renderRoleComponent(player: IPlayer) {
         const Component = player.role.component;
-
         return (
             <Component player={player} screenRef={this} callback={() => { this.goNext() }}/>
         )
@@ -56,7 +71,9 @@ class PlayerActionScreen extends React.Component {
         const player = this.props.players[idxPlayerTurn];
 
         if ( player ) {
-            return this.renderRoleComponent(player);
+            return this.props.gameStatus === GameStatus.PLAYERS_ACTION
+                        ? this.renderRoleComponent(player)
+                        : this.renderPlayerPollComponent(player)
         }
     }
 

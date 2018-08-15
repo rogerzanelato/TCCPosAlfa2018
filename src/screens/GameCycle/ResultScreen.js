@@ -47,17 +47,29 @@ class ResultScreen extends React.Component {
             player.status.length = 0;
         });
 
-        this.props.setAll({
-            gameStatus: GameStatus.DISCUSSION_TIME,
-            playerTurn: 0,
-            dayNumber: this.props.dayNumber + 1,
-            players: this.props.players
-        })
+        const idxNewPlayerTurn = this.props.players.findIndex( (player, idx) => {
+            return player.isAlive
+        });
 
-        if ( this.props.gameStatus ===  GameStatus.DAWN ) {
-            this.props.navigation.replace('DiscussionTime')
+        const params = {
+            playerTurn: idxNewPlayerTurn,
+            players: this.props.players
         }
 
+        let newScreen;
+
+        if ( this.props.gameStatus === GameStatus.DAWN ) {
+            params.dayNumber  = this.props.dayNumber + 1
+            params.gameStatus = GameStatus.DISCUSSION_TIME
+            newScreen = 'DiscussionTime'
+        } else {
+            params.dayNumber  = this.props.dayNumber
+            params.gameStatus = GameStatus.NIGHTFALL
+            newScreen = 'DayNight'
+        }
+
+        this.props.setAll(params)
+        this.props.navigation.replace(newScreen)
     }
 
     renderMiracleOcurred() {
@@ -74,6 +86,8 @@ class ResultScreen extends React.Component {
     }
 
     renderPlayersKilled() {
+        console.log(this);
+
         const players = this.state.playersKilled.map( (player, key) => {
             return (
                 <View key={key}>
@@ -85,16 +99,20 @@ class ResultScreen extends React.Component {
             )
         })
 
+        const titulo = this.props.gameStatus === GameStatus.DAWN
+                            ? 'Vítimas nessa noite:'
+                            : 'A cidade matou:' ;
+
         return (
             <View>
                 <Text style={[styles.big_title_gamecycle]}>
-                    Vítimas nessa noite:
+                    {titulo}
                 </Text>
 
                 { players }
 
                 <Text style={[styles.paragraph_gamecycle, styles.margin_paragraph]}>
-                    A vítima não tem permissão de falar até o fim do jogo!
+                    A vítima não tem permissão para falar até o fim do jogo!
                 </Text>
             </View>
         );
