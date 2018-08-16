@@ -141,7 +141,7 @@ class EndGameScreen extends React.Component {
 
                 <BackHandlerIntercept />
 
-                <LinearGradient colors={['#212121', '#424242', '#616161']} style={{ flex: 1 }}>
+                <LinearGradient colors={['#151515', '#212121', '#424242', '#616161']} style={{ flex: 1 }}>
                     <ScrollView>
                         <Content style={{ paddingBottom: 15 }}>
                             

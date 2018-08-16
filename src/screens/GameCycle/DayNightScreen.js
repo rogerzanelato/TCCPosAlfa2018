@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, Dimensions} from 'react-native';
+import { Image, View, Dimensions, ImageBackground } from 'react-native';
 import { Container, Header, Body, Right, Button, Title, Text, Content, Icon } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
@@ -83,6 +83,9 @@ class DayNightScreen extends React.Component {
     }
 
     render(){
+        const image = this.state.gameStatus === GameStatus.NIGHTFALL 
+                        ? require('@imgs/background_night_2.png')
+                        : require('@imgs/background_day.png')
         return (
             <Container>
                 <Header noLeft androidStatusBarColor="#212121" style={styles.header_main}>
@@ -94,7 +97,8 @@ class DayNightScreen extends React.Component {
 
                 <ExitGameIntercept screen={this}/>
 
-                <LinearGradient colors={['#212121', '#424242', '#616161']} style={{ flex: 1 }}>
+                <LinearGradient colors={['#151515', '#212121', '#424242', '#616161']} style={{ flex: 1 }}>
+                <ImageBackground source={image} style={{flex: 1}}>
                     <Content contentContainerStyle={[styles.container_init]} padder>
                         {/* <Image source={this.props.players[0].img} style={[styles.avatar_img_medium, styles.avatar_border]}/> */}
 
@@ -106,6 +110,7 @@ class DayNightScreen extends React.Component {
                             <Text>PRONTO</Text>
                         </Button>
                     </Content>
+                </ImageBackground>
                 </LinearGradient>
             </Container>
         );

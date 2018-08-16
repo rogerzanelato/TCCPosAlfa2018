@@ -213,7 +213,7 @@ class ResultScreen extends React.Component {
 
                 <ExitGameIntercept screen={this}/>
 
-                <LinearGradient colors={['#212121', '#424242', '#616161']} style={{ flex: 1 }}>
+                <LinearGradient colors={['#151515', '#212121', '#424242', '#616161']} style={{ flex: 1 }}>
                     <Content contentContainerStyle={[styles.container_init, { justifyContent: 'flex-start' }]} padder>
                         
                         <View style={styles.container}>

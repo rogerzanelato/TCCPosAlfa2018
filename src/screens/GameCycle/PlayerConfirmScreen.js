@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, TouchableWithoutFeedback} from 'react-native';
+import { Image, View, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import { Container, Header, Body, Right, Button, Title, Text, Content } from 'native-base';
 import styles from '../../css/Style';
 import { connect } from 'react-redux';
@@ -71,25 +71,27 @@ class PlayerConfirmScreen extends React.Component {
 
                 <ExitGameIntercept screen={this}/>
 
-                <LinearGradient colors={['#212121', '#424242', '#616161']} style={{ flex: 1 }}>
-                    <Content contentContainerStyle={[styles.container_init, { justifyContent: 'flex-start', marginTop: 30}]} padder>
-                        
-                        <TouchableWithoutFeedback onPress={() => this.confirmPlayer()}>
-                            { this.renderImage() }
-                        </TouchableWithoutFeedback>
+                <LinearGradient colors={['#151515', '#212121', '#424242', '#616161']} style={{ flex: 1 }}>
+                <ImageBackground source={require('@imgs/background_night_ground.png')} style={{flex: 1}}>
+                        <Content contentContainerStyle={[styles.container_init, { justifyContent: 'flex-start', marginTop: 30}]} padder>
+                            
+                            <TouchableWithoutFeedback onPress={() => this.confirmPlayer()}>
+                                { this.renderImage() }
+                            </TouchableWithoutFeedback>
 
-                        <View style={styles.container}>
-                            <Text style={[styles.big_title_gamecycle, styles.align_center]}>
-                                {this.state.player.name}
-                            </Text>
-                            <Text style={[styles.paragraph_gamecycle, styles.margin_paragraph]}>
-                                Entregue o dispositivo para este jogador.
-                                Aperte na foto quando estiver pronto!
-                            </Text>
-                        </View>
+                            <View style={styles.container}>
+                                <Text style={[styles.big_title_gamecycle, styles.align_center]}>
+                                    {this.state.player.name}
+                                </Text>
+                                <Text style={[styles.paragraph_gamecycle, styles.margin_paragraph]}>
+                                    Entregue o dispositivo para este jogador.
+                                    Aperte na foto quando estiver pronto!
+                                </Text>
+                            </View>
 
-                        { this.renderButton() }
-                    </Content>
+                            { this.renderButton() }
+                        </Content>
+                </ImageBackground>
                 </LinearGradient>
             </Container>
         );
