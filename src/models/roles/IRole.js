@@ -14,6 +14,7 @@ export interface IRole {
     name: string;
     description: string;
     descriptionActions: string;
+    img: string;
     type: number;
     idRole: number;
     weight: number;

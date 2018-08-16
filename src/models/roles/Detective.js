@@ -9,6 +9,7 @@ export default class Detective implements IRole {
     name = 'Detetive';
     description = 'Você poderá descobrir o papel de outro jogador a cada noite.';
     descriptionActions = 'Selecione um jogador para descobrir seu papel.';
+    img =  require('@imgs/roles/detetive.png');
     type = RolesType.HERO;
     idRole = 6;
     weight = 1;

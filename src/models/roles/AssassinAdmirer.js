@@ -9,6 +9,7 @@ export default class AssassinAdmirer implements IRole {
     name = 'Admirador do Assassino';
     description = 'Você é um grande fã do Assassino embora ainda não o conheça. Durante a noite, você seleciona um jogador e pode descobrir se ele é o Detetive ou o Assassino.';
     descriptionActions = 'Você é um grande fã do assassino! Selecione um jogador e poderá descobrir se ele é o Assassino ou Detetive.';
+    img =  require('@imgs/roles/admirador.png');
     type = RolesType.VILLAIN;
     idRole = 3;
     weight = 1;

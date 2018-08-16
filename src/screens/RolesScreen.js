@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Alert } from 'react-native';
 import { Container, Header, Left, Body, Icon, Right, Button, List, ListItem, 
-        Title, Text, Content, Switch, Footer, FooterTab } from 'native-base';
+        Title, Text, Content, Footer, FooterTab, Thumbnail } from 'native-base';
 import styles from '../css/Style';
 import * as Roles from '@models/WrappedRoles';
 import * as RolesType from '@models/roles/RolesType';
@@ -91,8 +91,10 @@ class RolesScreen extends React.Component {
         
 
         return (
-            <ListItem key={idx}>
-                {/* <Left/> */}
+            <ListItem key={idx} avatar>
+                <Left>
+                    <Thumbnail source={Role.img} />
+                </Left>
                 <Body>
                     <Text style={styles.list_item_title}>{Role.name}</Text>
                     <Text style={styles.list_item_description}>{Role.description}</Text>

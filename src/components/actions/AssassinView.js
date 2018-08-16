@@ -121,7 +121,7 @@ class AssassinView extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={this.props.player.img} style={[styles.avatar_img_medium, styles.avatar_border, styles.align_center]}/>
+                <Image source={this.props.player.role.img} style={[styles.avatar_img_medium, styles.avatar_border, styles.align_center]}/>
 
                 <Text style={[styles.big_title_gamecycle, styles.align_center, {marginTop: 25}]}>
                     {this.props.player.role.name}

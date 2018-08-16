@@ -7,6 +7,7 @@ export default class Depressive implements IRole {
     name = 'Depressivo';
     description = 'Você está muito triste. Seu único objetivo é ser morto pela aldeia. Para ganhar, você precisar ser morto na votação da cidade.';
     descriptionActions = 'Você vence o jogo se for morto na votação da cidade.';
+    img =  require('@imgs/roles/depressivo.png');    
     type = RolesType.OTHER;
     idRole = 5;
     weight = 1;
