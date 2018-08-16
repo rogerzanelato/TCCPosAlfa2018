@@ -5,4 +5,6 @@ export interface IPlayer {
     status: Array<number>;
     isAlive: boolean;
     votes: number;
+    wasKilledByPlayer?: boolean | null;
+    idPlayer: string;
 }

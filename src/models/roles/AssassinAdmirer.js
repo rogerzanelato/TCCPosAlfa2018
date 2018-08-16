@@ -17,4 +17,12 @@ export default class AssassinAdmirer implements IRole {
     actions: Array<IAction> = [ new ClarividenceVillain('SELECIONAR'), new Nothing('PULAR') ];
 
     component = ({...props}) => <DefaultWithTargets {...props} />;
+
+    isConditionToWinDone(val: ConditionToWinParam) {
+        const playersAlive = val.players.filter( it => it.isAlive );
+        const thereIsVillainsAlive = playersAlive.findIndex( it => it.role.type === RolesType.VILLAIN ) !== -1;
+        const thereIsNotOthersRoleAlive = playersAlive.findIndex( it => it.role.type !== RolesType.VILLAIN ) === -1;
+        
+        return thereIsVillainsAlive && thereIsNotOthersRoleAlive;
+    }
 }

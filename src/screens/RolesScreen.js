@@ -173,7 +173,7 @@ class RolesScreen extends React.Component {
             const idxRandomPlayer = Util.randomIntFromInterval(0, players.length - 1)
             players[idxRandomPlayer].role = new Roles.Assassin();
         }
-
+        
         this.props.setPlayers({ players: players });
         this.props.navigation.navigate('StartGame');
     }

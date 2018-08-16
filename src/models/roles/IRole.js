@@ -1,3 +1,8 @@
+type ConditionToWinParam = {
+    players?: Array<IPLayer>,
+    self?: IPlayer
+};
+
 /**
  * Interface dos papéis presentes no jogo
  * Os atributos weight e weightIdxDivisor são responsáveis por fazer a regra de 3 que validará atribuição automática
@@ -15,4 +20,6 @@ export interface IRole {
     weightIdxDivisor: number;
     actions?: Array<IAction>;
     component: Object;
+    
+    isConditionToWinDone(val: ConditionToWinParam): boolean;
 }

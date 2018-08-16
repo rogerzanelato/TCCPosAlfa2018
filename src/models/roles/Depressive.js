@@ -11,6 +11,16 @@ export default class Depressive implements IRole {
     idRole = 5;
     weight = 1;
     weightIdxDivisor = 10;
+    winnerTitle = 'O depressivo venceu!';
+    winnerMessage = 'Um cidadão inocente foi eliminado pela votação!';
 
     component = ({...props}) => <Default {...props} />;
+    
+    isConditionToWinDone(val: ConditionToWinParam) {
+        const isDead = val.self.isAlive === false
+        const wasNotKilledByPlayer = val.self.wasKilledByPlayer === false
+
+        // Se o jogador está morto e não foi porto por um jogador, indica que foi por votação
+        return isDead && wasNotKilledByPlayer
+    }
 }

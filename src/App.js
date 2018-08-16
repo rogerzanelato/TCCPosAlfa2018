@@ -13,6 +13,7 @@ import PlayerActionScreen from '@screens/GameCycle/PlayerActionScreen';
 import ShowPlayerRoleScreen from '@screens/GameCycle/ShowPlayerRoleScreen';
 import ResultScreen from '@screens/GameCycle/ResultScreen';
 import DiscussionTimeScreen from '@screens/GameCycle/DiscussionTimeScreen';
+import EndGameScreen from '@screens/GameCycle/EndGameScreen';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './services/redux/reducers';
@@ -32,7 +33,8 @@ const SimpleApp = StackNavigator({
     PlayerAction: { screen: PlayerActionScreen },
     ShowPlayerRole: { screen: ShowPlayerRoleScreen },
     Result: { screen: ResultScreen },
-    DiscussionTime: { screen: DiscussionTimeScreen }
+    DiscussionTime: { screen: DiscussionTimeScreen },
+    EndGame: { screen: EndGameScreen }
   },
   {
     initialRouteName: 'Home',

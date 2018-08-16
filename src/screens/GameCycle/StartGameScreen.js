@@ -24,6 +24,7 @@ class StartGameScreen extends React.Component {
             player.votes = 0;
             player.status.length = 0;
             player.isAlive = true;
+            player.wasKilledByPlayer = false;
         });
 
         this.props.setAll({
@@ -33,6 +34,7 @@ class StartGameScreen extends React.Component {
             players: this.props.players
         })
 
+        // this.props.navigation.replace('EndGame');
         this.props.navigation.replace('DayNight');
     }
 

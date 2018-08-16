@@ -13,4 +13,12 @@ export default class Citizen implements IRole {
     weightIdxDivisor = 1;
 
     component = ({...props}) => <Default {...props} />;
+    
+    isConditionToWinDone(val: ConditionToWinParam) {
+        const playersAlive = val.players.filter( it => it.isAlive );
+        const thereIsNotAssassinsAlive = playersAlive.findIndex( it => it.role.idRole === 2 ) === -1;
+        const thereIsHeroesAlive = playersAlive.findIndex( it => it.role.type === RolesType.HERO ) !== -1;
+        
+        return thereIsHeroesAlive && thereIsNotAssassinsAlive;
+    }
 }

@@ -7,4 +7,4 @@ export const DAWN = 6;
 export const DISCUSSION_TIME = 7;
 export const POLL_TIME = 8;
 export const POLL_FINISHED = 9;
-export const CALCULATE_GAME = 10;
+export const GAME_ENDED = 10;
